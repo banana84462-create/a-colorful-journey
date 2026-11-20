@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Imagine City | คืนสุดท้ายก่อนสีจะหายไป</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+<main class="game-container">
+
+    <!-- แถบด้านบน -->
+    <header class="top-bar">
+        <button id="sound-button" class="sound-button" aria-label="เปิดหรือปิดเสียง">
+            ♫
+        </button>
+
+        <div class="progress-container">
+            <div id="progress-fill"></div>
+        </div>
+    </header>
+
+    <!-- 1. หน้าเริ่มเกม -->
+    <section id="start-screen" class="screen active">
+        <div class="story-content">
+            <p class="eyebrow">A JOURNEY THROUGH IMAGINE CITY</p>
+            <h1>IMAGINE CITY</h1>
+            <h2>คืนสุดท้ายก่อนสีจะหายไป</h2>
+
+            <p class="story-text">
+                เมืองที่เคยเต็มไปด้วยสีสันกำลังจะกลายเป็นสีเทา
+                เหลือเวลาอีกเพียงหนึ่งคืน
+                เธอจะช่วยให้เมืองกลับมามีชีวิตได้หรือไม่
+            </p>
+
+            <button class="primary-button" id="start-button">
+                เริ่มการเดินทาง →
+            </button>
+        </div>
+
+        <div class="story-art">
+            <div class="art-placeholder">IMAGINE CITY</div>
+        </div>
+    </section>
+
+    <!-- 2. หน้าคำแนะนำ -->
+    <section id="instruction-screen" class="screen">
+        <div class="story-content">
+            <p class="eyebrow">BEFORE THE JOURNEY</p>
+            <h1>ก่อนออกเดินทาง</h1>
+
+            <div class="story-text">
+                <p>
+                    คืนนี้สีสันของ Imagine City กำลังจะหายไปทั้งเมือง
+                    ดวงไฟดวงเล็ก ๆ จะนำทางเธอไปตลอดการเดินทาง
+                    แต่ทุกการตัดสินใจจะเป็นของเธอเอง
+                </p>
+            </div>
+
+            <div class="instruction-list">
+                <h3>วิธีเล่น</h3>
+                <p>01 — ไม่มีคำตอบถูกหรือผิด เลือกข้อที่ใกล้ใจเธอที่สุด</p>
+                <p>02 — อย่าคิดนาน ข้อที่นึกถึงก่อนมักเป็นข้อที่ใช่</p>
+                <p>03 — เดินทางไปจนถึงคืนเทศกาล เพื่อค้นพบตัวตนของเธอ</p>
+            </div>
+
+            <button class="primary-button" id="begin-button">
+                ออกเดินทาง →
+            </button>
+        </div>
+    </section>
+
+    <!-- 3. หน้าคำถาม -->
+    <section id="game-screen" class="screen">
+        <div class="story-content">
+            <p class="eyebrow" id="chapter-label">CHAPTER 01</p>
+
+            <h1 id="question-title"></h1>
+
+            <p class="story-text" id="question-description"></p>
+
+            <div class="story-art" id="question-art">
+                <div class="art-placeholder">YOUR JOURNEY</div>
+            </div>
+
+            <div id="answer-list" class="answer-list"></div>
+
+            <p id="question-counter" class="question-counter"></p>
+        </div>
+    </section>
+
+    <!-- 4. หน้าเลือกย่าน -->
+    <section id="district-screen" class="screen">
+        <div class="story-content">
+            <p class="eyebrow">CHAPTER 03 • YOUR DISTRICT</p>
+
+            <h1>ย่านของเธอ</h1>
+
+            <p id="district-description" class="story-text">
+                ดวงไฟพาเธอมาถึงย่านที่ใกล้ตัวเธอที่สุด
+            </p>
+
+            <div id="district-list" class="choice-list"></div>
+        </div>
+    </section>
+
+    <!-- 5. หน้าเลือกอาชีพ -->
+    <section id="career-screen" class="screen">
+        <div class="story-content">
+            <p class="eyebrow">FIND YOUR PATH</p>
+
+            <h1>เธออยากเป็นใครในเมืองนี้</h1>
+
+            <p id="career-description" class="story-text"></p>
+
+            <div id="career-list" class="choice-list"></div>
+        </div>
+    </section>
+
+    <!-- 6. หน้าลงทะเบียน -->
+    <section id="registration-screen" class="screen">
+        <div class="story-content">
+            <p class="eyebrow">THE FINAL GATE</p>
+
+            <h1>บัตรผ่านนักเดินทาง</h1>
+
+            <p class="story-text">
+                ผู้เฝ้าประตูขอดูบัตรผ่านสักใบ
+                กรอกเท่าที่สะดวกได้เลย ข้อไหนไม่อยากตอบก็ข้ามได้
+            </p>
+
+            <form id="registration-form">
+
+                <label for="player-name">1. ชื่อเล่น</label>
+                <input id="player-name" name="nickname" type="text" placeholder="ชื่อเล่นของเธอ">
+
+                <label for="education">2. ตอนนี้เรียนอยู่ชั้นไหน</label>
+                <select id="education" name="education">
+                    <option value="">เลือกคำตอบ</option>
+                    <option>ม.4</option>
+                    <option>ม.5</option>
+                    <option>ม.6</option>
+                    <option>ปวช.</option>
+                    <option>ปวส.</option>
+                    <option>อื่น ๆ</option>
+                </select>
+
+                <label for="study-line">3. เรียนสายอะไรอยู่</label>
+                <select id="study-line" name="studyLine">
+                    <option value="">เลือกคำตอบ</option>
+                    <option>ศิลป์-คำนวณ</option>
+                    <option>ศิลป์-ภาษา</option>
+                    <option>วิทย์-คณิต</option>
+                    <option>สายอาชีพ</option>
+                    <option>อื่น ๆ</option>
+                </select>
+
+                <label for="province">4. อยู่จังหวัดอะไร</label>
+                <input id="province" name="province" type="text" placeholder="จังหวัด">
+
+                <label for="source">5. รู้จักคณะนี้จากที่ไหน</label>
+                <select id="source" name="source">
+                    <option value="">เลือกคำตอบ</option>
+                    <option>Facebook</option>
+                    <option>Instagram</option>
+                    <option>TikTok</option>
+                    <option>เพื่อนหรือรุ่นพี่</option>
+                    <option>ครูแนะแนว</option>
+                    <option>งานกิจกรรม</option>
+                    <option>อื่น ๆ</option>
+                </select>
+
+                <label>6. เลือกคณะโดยดูจากอะไรมากที่สุด (เลือกได้ 2 ข้อ)</label>
+                <div id="faculty-reasons" class="checkbox-list">
+                    <label><input type="checkbox" name="reasons" value="ค่าเทอม"> ค่าเทอม</label>
+                    <label><input type="checkbox" name="reasons" value="ทุนการศึกษา"> ทุนการศึกษา</label>
+                    <label><input type="checkbox" name="reasons" value="ชื่อเสียงมหาวิทยาลัย"> ชื่อเสียงมหาวิทยาลัย</label>
+                    <label><input type="checkbox" name="reasons" value="อาชีพหลังเรียนจบ"> อาชีพหลังเรียนจบ</label>
+                    <label><input type="checkbox" name="reasons" value="ผลงานของรุ่นพี่"> ผลงานของรุ่นพี่</label>
+                    <label><input type="checkbox" name="reasons" value="การเดินทาง"> การเดินทาง</label>
+                    <label><input type="checkbox" name="reasons" value="ความชอบของตัวเอง"> ความชอบของตัวเอง</label>
+                    <label><input type="checkbox" name="reasons" value="ผู้ปกครองสนับสนุน"> ผู้ปกครองสนับสนุน</label>
+                </div>
+
+                <label for="decision-stage">7. ตอนนี้อยู่ขั้นไหนของการเลือกคณะ</label>
+                <select id="decision-stage" name="decisionStage">
+                    <option value="">เลือกคำตอบ</option>
+                    <option>เพิ่งเริ่มหาข้อมูล</option>
+                    <option>กำลังเปรียบเทียบหลายที่</option>
+                    <option>ตั้งใจสมัครแล้ว</option>
+                    <option>รอผลสอบที่อื่นก่อน</option>
+                </select>
+
+                <label for="experience">8. เคยทำงานสร้างสรรค์อะไรมาบ้าง</label>
+                <select id="experience" name="experience">
+                    <option value="">เลือกคำตอบ</option>
+                    <option>วาดรูป</option>
+                    <option>ออกแบบ</option>
+                    <option>ตัดต่อวิดีโอ</option>
+                    <option>ทำเกม</option>
+                    <option>จัดกิจกรรม</option>
+                    <option>ถ่ายคอนเทนต์</option>
+                    <option>ยังไม่เคยเลย</option>
+                </select>
+
+                <label for="contact-channel">9. อยากรับข่าวสารของคณะทางไหน</label>
+                <select id="contact-channel" name="contactChannel">
+                    <option value="">เลือกคำตอบ</option>
+                    <option>LINE</option>
+                    <option>อีเมล</option>
+                    <option>Facebook</option>
+                    <option>Instagram</option>
+                    <option>โทรศัพท์</option>
+                </select>
+
+                <button type="submit" class="primary-button">
+                    ยืนยันบัตรผ่าน →
+                </button>
+
+            </form>
+        </div>
+    </section>
+
+    <!-- 7. หน้าผลลัพธ์ -->
+    
+
+
+<section id="result-screen" class="screen">
+    <div class="story-content result-content">
+
+        <p class="eyebrow">YOUR JOURNEY</p>
+
+        <!-- ชื่อผลลัพธ์ -->
+        <h1 id="result-title">เธอคือนักเดินทางแบบไหน</h1>
+
+        <!-- คำบรรยายผลลัพธ์ -->
+        <p id="result-description" class="story-text"></p>
+
+        <!-- พื้นที่สำหรับรูปหมาในอนาคต -->
+        <div class="result-image">
+        </div>
+
+        <!-- อาชีพที่เกี่ยวข้อง -->
+        <div class="result-careers">
+            <h2>อาชีพที่เกี่ยวข้อง</h2>
+            <div id="result-career-list"></div>
+        </div>
+
+        <!-- สาขาที่เรียนได้ -->
+        <div class="result-major">
+            <p>เรียนได้ที่</p>
+            <h2 id="result-school"></h2>
+        </div>
+
+        <p class="ending-message">
+            ไม่ว่าเธอจะเป็นนักเดินทางแบบไหน
+            เมืองนี้ยังมีที่ว่างรออยู่เสมอ
+        </p>
+
+        <button id="restart-button" class="primary-button">
+            เริ่มเดินทางอีกครั้ง →
+        </button>
+
+    </div>
+</section>
+
+
+
+</main>
+
+</body>
+</html>
